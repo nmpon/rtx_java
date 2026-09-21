@@ -36,7 +36,7 @@ Color traceRay(Ray ray, ArrayList<Sphere> scene, int depth) {
     var futureColor = traceRay(outgoingRay, scene, depth - 1);
     var thisColor = intersectedSphere.color;
 
-    return thisColor.Multiplied(futureColor);
+    return thisColor.multiply(futureColor);
 }
 
 void main() throws IOException {
@@ -56,7 +56,7 @@ void main() throws IOException {
 
             int imageX = Math.toIntExact((int) ((x + 1) * 0.5 * outputImage.getWidth()));
             int imageY = Math.toIntExact((int) ((y + 1) * 0.5 * outputImage.getHeight()));
-            outputImage.setRGB(imageX, imageY, pixelColor.AsIntegerColor());
+            outputImage.setRGB(imageX, imageY, pixelColor.asIntegerColor());
         }
     }
 

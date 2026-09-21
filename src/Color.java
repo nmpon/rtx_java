@@ -1,5 +1,7 @@
 public class Color {
-    double red, green, blue;
+    double red;
+    double green;
+    double blue;
 
     public Color(double red, double green, double blue) {
         this.red = red;
@@ -7,19 +9,19 @@ public class Color {
         this.blue = blue;
     }
 
-    public Color Multiplied(Color other){
+    public Color multiply(Color other) {
         return new Color(this.red * other.red, this.green * other.green, this.blue * other.blue);
     }
 
-    public Color Add(Color other){
+    public Color add(Color other) {
         return new Color(this.red + other.red, this.green + other.green, this.blue + other.blue);
     }
 
-    public int AsIntegerColor(){
-        if (this.red > 1 ||  this.green > 1 || this.blue > 1){
+    public int asIntegerColor() {
+        if (this.red > 1 ||  this.green > 1 || this.blue > 1) {
             throw new RuntimeException("color value too high (>1)");
         }
-        if (this.red < 0 ||  this.green < 0 || this.blue < 0){
+        if (this.red < 0 ||  this.green < 0 || this.blue < 0) {
             throw new RuntimeException("color value too low (<0)");
         }
         return
