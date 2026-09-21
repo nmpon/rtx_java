@@ -12,8 +12,10 @@ Color TraceRay(Ray ray, ArrayList<Sphere> scene){
             intersected_sphere = sphere;
         }
     }
+    if (intersected_sphere == null){
+        return new Color(0, 0, 0);
+    }
     var intersection_point = ray.positionAt(current_lowest_t);
-    assert intersected_sphere != null;
     var intersection_normal = intersected_sphere.center.SubtractVector(intersection_point).Normalized();
 
     var incoming_ray_reversed = ray.direction.Multiplied(-1);
