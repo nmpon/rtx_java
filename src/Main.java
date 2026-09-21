@@ -6,7 +6,7 @@ Color traceRay(Ray ray, ArrayList<Sphere> scene, int depth) {
     Sphere intersectedSphere = null;
 
     for (Sphere sphere : scene) {
-        var tToCheck = ray.Intersect(sphere);
+        var tToCheck = ray.intersectRay(sphere);
         if (tToCheck >= 0.0001 && tToCheck <= currentLowestT) {
             currentLowestT = tToCheck;
             intersectedSphere = sphere;
