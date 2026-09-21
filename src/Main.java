@@ -1,7 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-Color TraceRay(Ray ray, ArrayList<Sphere> scene){
+Color TraceRay(Ray ray, ArrayList<Sphere> scene, int depth){
     double current_lowest_t = 1e99;
     Sphere intersected_sphere = null;
 
@@ -13,7 +13,10 @@ Color TraceRay(Ray ray, ArrayList<Sphere> scene){
         }
     }
     if (intersected_sphere == null){
-        return new Color(0, 0, 0);
+        return new Color(0.5, 0.5, 0.5);
+    }
+    if (depth == 0){
+        return intersected_sphere.color;
     }
     var intersection_point = ray.positionAt(current_lowest_t);
     var intersection_normal = intersected_sphere.center.SubtractVector(intersection_point).Normalized();
@@ -27,20 +30,27 @@ Color TraceRay(Ray ray, ArrayList<Sphere> scene){
     var outgoing_ray_origin = intersection_point;
     var outgoing_ray = new Ray(outgoing_ray_origin, outgoing_ray_direction);
 
-    return new Color(0.8, 0.6, 0.8);
+
+    var future_color = TraceRay(outgoing_ray, scene,depth - 1);
+    var this_color = intersected_sphere.color;
+
+    return this_color.Multiplied(future_color);
 }
 
 void main() throws IOException {
     var outputImage = new BufferedImage(400, 400, BufferedImage.TYPE_INT_RGB);
 
     var scene = new ArrayList<Sphere>();
-    scene.add(new Sphere(2.0, new Vector3(0.0, 0.0, 10)));
+    scene.add(new Sphere(2.0, new Vector3(0.0, 0.0, 10), new Color(.7, .8, .1)));
+    scene.add(new Sphere(1.5, new Vector3(2.0, -5.0, 12), new Color(.8, .6, .8)));
+    scene.add(new Sphere(2.5, new Vector3(-5.0, 2.0, 8), new Color(.2, .3, .8)));
+
 
     for (double x = -1.0;  x <= 1.0; x += 0.001) {
         for (double y = -1.0; y <= 1.0; y += 0.001) {
             var ray = new Ray(new Vector3(0.0, 0.0, 0.0), new Vector3(x, y, 1));
 
-            var pixel_color = TraceRay(ray, scene);
+            var pixel_color = TraceRay(ray, scene, 3);
 
 
             int image_x = Math.toIntExact((int) ((x + 1) * 0.5 * outputImage.getWidth()));
