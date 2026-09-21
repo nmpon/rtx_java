@@ -30,4 +30,8 @@ public class Ray {
 
         return Math.min(Math.max(0, t0), Math.max(0, t1));
     }
+
+    public Vector3 positionAt(double t){
+        return this.origin.AddVector(this.direction.Multiplied(t));
+    }
 }

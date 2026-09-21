@@ -12,6 +12,9 @@ Color TraceRay(Ray ray, ArrayList<Sphere> scene){
             intersected_sphere = sphere;
         }
     }
+    var intersection_point = ray.positionAt(current_lowest_t);
+    assert intersected_sphere != null;
+    var intersection_normal = intersected_sphere.center.SubtractVector(intersection_point);
 
     return new Color(0.8, 0.6, 0.8);
 }
@@ -31,7 +34,6 @@ void main() throws IOException {
 
             int image_x = Math.toIntExact((int) ((x + 1) * 0.5 * outputImage.getWidth()));
             int image_y = Math.toIntExact((int) ((y + 1) * 0.5 * outputImage.getHeight()));
-//            IO.println(Integer.toBinaryString(pixel_color.AsIntegerColor()));
             outputImage.setRGB(image_x, image_y, pixel_color.AsIntegerColor());
 
             /*
