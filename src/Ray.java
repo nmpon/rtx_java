@@ -4,7 +4,7 @@ public class Ray {
 
     public Ray(Vector3 origin, Vector3 direction) {
         this.origin = origin;
-        this.direction = direction.Normalized();
+        this.direction = direction.normalized();
     }
 
     public double intersectRay(Sphere sphere) {
@@ -16,11 +16,11 @@ public class Ray {
         var radius = sphere.radius;
 
 
-        double a = direction.DotProduct(direction);
-        double b = 2 * direction.DotProduct(origin) - 2 * center.DotProduct(direction);
-        double c = origin.DotProduct(origin)
-            - 2 * center.DotProduct(origin)
-            + center.DotProduct(center)
+        double a = direction.dotProduct(direction);
+        double b = 2 * direction.dotProduct(origin) - 2 * center.dotProduct(direction);
+        double c = origin.dotProduct(origin)
+            - 2 * center.dotProduct(origin)
+            + center.dotProduct(center)
             - Math.pow(radius, 2);
         double determinant = Math.pow(b, 2) - 4 * a * c;
 
@@ -35,6 +35,6 @@ public class Ray {
     }
 
     public Vector3 positionAt(double t) {
-        return this.origin.AddVector(this.direction.Multiplied(t));
+        return this.origin.addVector(this.direction.multiply(t));
     }
 }

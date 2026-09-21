@@ -20,15 +20,15 @@ Color traceRay(Ray ray, ArrayList<Sphere> scene, int depth) {
     }
     var intersectionPoint = ray.positionAt(currentLowestT);
     var intersectionNormal = intersectedSphere.center
-        .SubtractVector(intersectionPoint)
-        .Normalized();
+        .subtractVector(intersectionPoint)
+        .normalized();
 
-    var incomingRayReversed = ray.direction.Multiplied(-1);
+    var incomingRayReversed = ray.direction.multiply(-1);
     var outgoingRayDirection = intersectionNormal
-            .Multiplied(2)
-            .Multiplied(intersectionNormal
-            .DotProduct(incomingRayReversed))
-            .SubtractVector(incomingRayReversed);
+            .multiply(2)
+            .multiply(intersectionNormal
+            .dotProduct(incomingRayReversed))
+            .subtractVector(incomingRayReversed);
     var outgoingRayOrigin = intersectionPoint;
     var outgoingRay = new Ray(outgoingRayOrigin, outgoingRayDirection);
 
