@@ -43,7 +43,9 @@ void main() throws IOException {
     var scene = new ArrayList<Sphere>();
     scene.add(new Sphere(2.0, new Vector3(0.0, 0.0, 10), new Color(.7, .8, .1)));
     scene.add(new Sphere(1.5, new Vector3(2.0, -5.0, 12), new Color(.8, .6, .8)));
-    scene.add(new Sphere(2.5, new Vector3(-5.0, 2.0, 8), new Color(.2, .3, .8)));
+    scene.add(new Sphere(2.5, new Vector3(-5.0, 2.0, 8), new Color(.2, .3, .4)));
+    scene.add(new Sphere(2.0, new Vector3(4.0, -2.0, 8), new Color(2, 2, 2)));
+
 
 
     for (double x = -1.0;  x <= 1.0; x += 0.001) {
