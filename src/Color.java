@@ -18,9 +18,9 @@ public class Color {
     }
 
     public int asIntegerColor() {
-        if (this.red > 1 ||  this.green > 1 || this.blue > 1) {
-            throw new RuntimeException("color value too high (>1)");
-        }
+        this.red = Math.min(this.red, 1);
+        this.green = Math.min(this.green, 1);
+        this.blue = Math.min(this.blue, 1);
         if (this.red < 0 ||  this.green < 0 || this.blue < 0) {
             throw new RuntimeException("color value too low (<0)");
         }
