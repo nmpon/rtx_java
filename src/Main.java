@@ -1,6 +1,22 @@
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+/*
+TODO:
+replace ArrayList<Sphere> scene with a Scene class
+a. camera class with position, rotation, fov
+b. ArrayList that holds generic renderable objects
+c. output resolution
+
+add shaders:
+a. Blinn-Phong
+b. emission
+
+lens correction
+
+random sampling + AA pixel mixing
+*/
+
 Color traceRay(Ray ray, ArrayList<Sphere> scene, int depth) {
     double currentLowestT = 1e99;
     Sphere intersectedSphere = null;
@@ -46,6 +62,7 @@ void main() throws IOException {
     scene.add(new Sphere(2.0, new Vector3(0.0, 0.0, 10), new Color(.7, .8, .1)));
     scene.add(new Sphere(1.5, new Vector3(2.0, -5.0, 12), new Color(.8, .6, .8)));
     scene.add(new Sphere(2.5, new Vector3(-5.0, 2.0, 8), new Color(.2, .3, .8)));
+    scene.add(new Sphere(1, new Vector3(4.0, 4.0, 7), new Color(3, 3, 3)));
 
 
     for (double x = -1.0;  x <= 1.0; x += 0.001) {
