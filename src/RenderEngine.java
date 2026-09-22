@@ -28,8 +28,7 @@ public class RenderEngine {
                 .Multiplied(intersection_normal
                         .DotProduct(incoming_ray_reversed))
                 .SubtractVector(incoming_ray_reversed);
-        var outgoing_ray_origin = intersection_point;
-        var outgoing_ray = new Ray(outgoing_ray_origin, outgoing_ray_direction);
+        var outgoing_ray = new Ray(intersection_point, outgoing_ray_direction);
 
 
         var future_color = traceRay(outgoing_ray, scene,depth - 1);

@@ -17,5 +17,3 @@ void main() throws IOException {
     File outputfile = new File("output.png");
     ImageIO.write(outputImage, "png", outputfile);
 }
-
-
