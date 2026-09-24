@@ -42,17 +42,23 @@ public class RenderEngine {
     static BufferedImage renderSimple(Scene scene, int outputWidth, int outputHeight, int raysPerPixel, int maxDepth) {
         var outputImage = new BufferedImage(outputWidth, outputHeight, BufferedImage.TYPE_INT_RGB);
 
+        var aspectRatio = (float) outputWidth / (float) outputHeight;
+
+        // x and y ranges in one direction (0, ...)
+        var halfHeight = Math.tan(scene.camera.verticalFieldOfView / 2);
+        var halfWidth = halfHeight * aspectRatio;
+
         var pixelsInImage = outputWidth * outputHeight;
         var totalRays = raysPerPixel * pixelsInImage;
         for (int raysCast = 0; raysCast < totalRays; raysCast++){
-            double x = Math.random() * 2d - 1d;
-            double y = Math.random() * 2d - 1d;
+            double x = (Math.random() * 2 - 1) * halfWidth;
+            double y = (Math.random() * 2 - 1) * halfHeight;
 
             var ray = new Ray(new Vector3(0.0, 0.0, 0.0), new Vector3(x, y, 1));
             var pixelColor = traceRay(ray, scene, maxDepth);
 
-            int imageX = Math.toIntExact((int) ((x + 1) * 0.5 * outputImage.getWidth()));
-            int imageY = Math.toIntExact((int) ((y + 1) * 0.5 * outputImage.getHeight()));
+            int imageX = Math.toIntExact((int) ((x / halfWidth + 1) * 0.5 * outputWidth));
+            int imageY = Math.toIntExact((int) ((y / halfHeight + 1) * 0.5 * outputHeight));
             outputImage.setRGB(imageX, imageY, pixelColor.asIntegerColor());
         }
 

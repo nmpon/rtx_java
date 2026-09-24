@@ -1,11 +1,11 @@
 public class Camera {
     Vector3 position;
     Vector3 rotation;
-    double fieldOfView;
+    double verticalFieldOfView;
 
-    Camera(Vector3 position, Vector3 rotation, double fieldOfView) {
+    Camera(Vector3 position, Vector3 rotation, double verticalFieldOfView) {
         this.position = position;
         this.rotation = rotation;
-        this.fieldOfView = fieldOfView;
+        this.verticalFieldOfView = verticalFieldOfView;
     }
 }
