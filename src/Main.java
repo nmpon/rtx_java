@@ -2,18 +2,11 @@ import javax.imageio.ImageIO;
 
 /*
 TODO:
-replace ArrayList<Sphere> scene with a Scene class
-a. camera class with position, rotation, fov
-b. ArrayList that holds generic renderable objects
-c. output resolution
-
 add shaders:
 a. Blinn-Phong
 b. emission
 
-lens correction
-
-random sampling + AA pixel mixing
+AA pixel mixing
 */
 
 
@@ -26,13 +19,12 @@ void main() throws IOException {
     sceneObjects.add(new Sphere(2.0, new Vector3(4.0, -2.0, 8), new Color(2, 2, 2)));
     var camera = new Camera(
             new Vector3(0, 0, 0),
-            new Vector3(0, 0, 0)
+            new Vector3(0, 0, 0),
+            Math.toRadians(50)
     );
     var scene = new Scene(sceneObjects, camera);
-    var outputImage = RenderEngine.renderSimple(scene, 400, 400, 40, 12);
+    var outputImage = RenderEngine.renderSimple(scene, 1280, 720, 40, 12);
 
     File outputfile = new File("output.png");
     ImageIO.write(outputImage, "png", outputfile);
 }
-
-
