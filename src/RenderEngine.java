@@ -3,39 +3,39 @@ import java.awt.image.BufferedImage;
 public class RenderEngine {
 
     static Color traceRay(Ray ray, Scene scene, int depth) {
-        double current_lowest_t = 1e99;
-        Sphere intersected_sphere = null;
+        double currentLowestT = 1e99;
+        Sphere intersectedSphere = null;
 
         for (Sphere sphere : scene.sceneObjects){
-            var check_t = ray.intersectRay(sphere);
-            if (check_t >= 0.0001 && check_t <= current_lowest_t) {
-                current_lowest_t = check_t;
-                intersected_sphere = sphere;
+            var checkT = ray.intersectRay(sphere);
+            if (checkT >= 0.0001 && checkT <= currentLowestT) {
+                currentLowestT = checkT;
+                intersectedSphere = sphere;
             }
         }
-        if (intersected_sphere == null){
+        if (intersectedSphere == null){
             return new Color(0.5, 0.5, 0.5);
         }
         if (depth == 0){
-            return intersected_sphere.color;
+            return intersectedSphere.color;
         }
-        var intersection_point = ray.positionAt(current_lowest_t);
-        var intersection_normal = intersected_sphere.center.subtractVector(intersection_point).normalized();
+        var intersectionPoint = ray.positionAt(currentLowestT);
+        var intersectionNormal = intersectedSphere.center.subtractVector(intersectionPoint).normalized();
 
-        var incoming_ray_reversed = ray.direction.multiply(-1);
-        var outgoing_ray_direction = intersection_normal
+        var incomingRayReversed = ray.direction.multiply(-1);
+        var outgoingRayDirection = intersectionNormal
                 .multiply(2)
-                .multiply(intersection_normal
-                        .dotProduct(incoming_ray_reversed))
-                .subtractVector(incoming_ray_reversed);
-        var outgoing_ray_origin = intersection_point;
-        var outgoing_ray = new Ray(outgoing_ray_origin, outgoing_ray_direction);
+                .multiply(intersectionNormal
+                        .dotProduct(incomingRayReversed))
+                .subtractVector(incomingRayReversed);
+        var outgoingRayOrigin = intersectionPoint;
+        var outgoingRay = new Ray(outgoingRayOrigin, outgoingRayDirection);
 
 
-        var future_color = traceRay(outgoing_ray, scene,depth - 1);
-        var this_color = intersected_sphere.color;
+        var futureColor = traceRay(outgoingRay, scene,depth - 1);
+        var thisColor = intersectedSphere.color;
 
-        return this_color.multiply(future_color);
+        return thisColor.multiply(futureColor);
     }
 
 
@@ -49,11 +49,11 @@ public class RenderEngine {
             double y = Math.random() * 2d - 1d;
 
             var ray = new Ray(new Vector3(0.0, 0.0, 0.0), new Vector3(x, y, 1));
-            var pixel_color = traceRay(ray, scene, maxDepth);
+            var pixelColor = traceRay(ray, scene, maxDepth);
 
-            int image_x = Math.toIntExact((int) ((x + 1) * 0.5 * outputImage.getWidth()));
-            int image_y = Math.toIntExact((int) ((y + 1) * 0.5 * outputImage.getHeight()));
-            outputImage.setRGB(image_x, image_y, pixel_color.asIntegerColor());
+            int imageX = Math.toIntExact((int) ((x + 1) * 0.5 * outputImage.getWidth()));
+            int imageY = Math.toIntExact((int) ((y + 1) * 0.5 * outputImage.getHeight()));
+            outputImage.setRGB(imageX, imageY, pixelColor.asIntegerColor());
         }
 
         return outputImage;
