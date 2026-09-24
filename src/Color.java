@@ -1,5 +1,7 @@
 public class Color {
-    double red, green, blue;
+    double red;
+    double green;
+    double blue;
 
     public Color(double red, double green, double blue) {
         this.red = red;
@@ -7,15 +9,15 @@ public class Color {
         this.blue = blue;
     }
 
-    public Color Multiplied(Color other){
+    public Color multiply(Color other) {
         return new Color(this.red * other.red, this.green * other.green, this.blue * other.blue);
     }
 
-    public Color Add(Color other){
+    public Color add(Color other) {
         return new Color(this.red + other.red, this.green + other.green, this.blue + other.blue);
     }
 
-    public int AsIntegerColor(){
+    public int asIntegerColor() {
         var red = Math.clamp(this.red, 0, 1);
         var green = Math.clamp(this.green, 0, 1);
         var blue = Math.clamp(this.blue, 0, 1);

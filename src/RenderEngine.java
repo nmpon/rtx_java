@@ -35,7 +35,7 @@ public class RenderEngine {
         var future_color = traceRay(outgoing_ray, scene,depth - 1);
         var this_color = intersected_sphere.color;
 
-        return this_color.Multiplied(future_color);
+        return this_color.multiply(future_color);
     }
 
 
@@ -53,7 +53,7 @@ public class RenderEngine {
 
             int image_x = Math.toIntExact((int) ((x + 1) * 0.5 * outputImage.getWidth()));
             int image_y = Math.toIntExact((int) ((y + 1) * 0.5 * outputImage.getHeight()));
-            outputImage.setRGB(image_x, image_y, pixel_color.AsIntegerColor());
+            outputImage.setRGB(image_x, image_y, pixel_color.asIntegerColor());
         }
 
         return outputImage;
