@@ -1,5 +1,22 @@
 import javax.imageio.ImageIO;
 
+/*
+TODO:
+replace ArrayList<Sphere> scene with a Scene class
+a. camera class with position, rotation, fov
+b. ArrayList that holds generic renderable objects
+c. output resolution
+
+add shaders:
+a. Blinn-Phong
+b. emission
+
+lens correction
+
+random sampling + AA pixel mixing
+*/
+
+
 
 void main() throws IOException {
     var sceneObjects = new ArrayList<Sphere>();
