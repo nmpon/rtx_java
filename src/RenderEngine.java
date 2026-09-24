@@ -7,7 +7,7 @@ public class RenderEngine {
         Sphere intersected_sphere = null;
 
         for (Sphere sphere : scene.sceneObjects){
-            var check_t = ray.Intersect(sphere);
+            var check_t = ray.intersectRay(sphere);
             if (check_t >= 0.0001 && check_t <= current_lowest_t) {
                 current_lowest_t = check_t;
                 intersected_sphere = sphere;
@@ -20,14 +20,14 @@ public class RenderEngine {
             return intersected_sphere.color;
         }
         var intersection_point = ray.positionAt(current_lowest_t);
-        var intersection_normal = intersected_sphere.center.SubtractVector(intersection_point).Normalized();
+        var intersection_normal = intersected_sphere.center.subtractVector(intersection_point).normalized();
 
-        var incoming_ray_reversed = ray.direction.Multiplied(-1);
+        var incoming_ray_reversed = ray.direction.multiply(-1);
         var outgoing_ray_direction = intersection_normal
-                .Multiplied(2)
-                .Multiplied(intersection_normal
-                        .DotProduct(incoming_ray_reversed))
-                .SubtractVector(incoming_ray_reversed);
+                .multiply(2)
+                .multiply(intersection_normal
+                        .dotProduct(incoming_ray_reversed))
+                .subtractVector(incoming_ray_reversed);
         var outgoing_ray_origin = intersection_point;
         var outgoing_ray = new Ray(outgoing_ray_origin, outgoing_ray_direction);
 
