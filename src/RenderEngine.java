@@ -49,8 +49,8 @@ public class RenderEngine {
         var halfWidth = halfHeight * aspectRatio;
 
         var pixelsInImage = outputWidth * outputHeight;
-        var totalRays = raysPerPixel * pixelsInImage;
-        for (int raysCast = 0; raysCast < totalRays; raysCast++){
+        long totalRays = (long) raysPerPixel * pixelsInImage;
+        for (long raysCast = 0; raysCast < totalRays; raysCast++) {
             double x = (Math.random() * 2 - 1) * halfWidth;
             double y = (Math.random() * 2 - 1) * halfHeight;
 
@@ -60,8 +60,13 @@ public class RenderEngine {
             int imageX = Math.toIntExact((int) ((x / halfWidth + 1) * 0.5 * outputWidth));
             int imageY = Math.toIntExact((int) ((y / halfHeight + 1) * 0.5 * outputHeight));
             outputImage.setRGB(imageX, imageY, pixelColor.asIntegerColor());
+
+            if (raysCast % 1_000_000 == 0) {
+                IO.print("\r%e/%e (%.2f)".formatted((double) raysCast, (double) totalRays, ((double) raysCast / totalRays * 100d)));
+            }
         }
 
         return outputImage;
     }
 }
+ 
