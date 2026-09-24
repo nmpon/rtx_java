@@ -31,7 +31,7 @@ public class Ray {
         double t0 = (-b + Math.sqrt(determinant)) / (2 * a);
         double t1 = (-b - Math.sqrt(determinant)) / (2 * a);
 
-        return Math.min(Math.max(0, t0), Math.max(0, t1));
+        return Math.clamp(t0, 0, Math.max(0, t1));
     }
 
     public Vector3 positionAt(double t) {
