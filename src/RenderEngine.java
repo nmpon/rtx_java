@@ -33,7 +33,7 @@ public class RenderEngine {
 
 
     static BufferedImage renderSimple(Scene scene, int outputWidth, int outputHeight, int raysPerPixel, int maxDepth) {
-        var outputImage = new BufferedImage(outputWidth, outputHeight, BufferedImage.TYPE_INT_RGB);
+        var outputImage = new Image(outputWidth, outputHeight);
 
         var aspectRatio = (float) outputWidth / (float) outputHeight;
 
@@ -41,8 +41,7 @@ public class RenderEngine {
         var halfHeight = Math.tan(scene.camera.verticalFieldOfView / 2);
         var halfWidth = halfHeight * aspectRatio;
 
-        var pixelsInImage = outputWidth * outputHeight;
-        long totalRays = (long) raysPerPixel * pixelsInImage;
+        long totalRays = (long) outputWidth * outputHeight * raysPerPixel;
         for (long raysCast = 0; raysCast < totalRays; raysCast++) {
             double x = (Math.random() * 2 - 1) * halfWidth;
             double y = (Math.random() * 2 - 1) * halfHeight;
@@ -52,14 +51,14 @@ public class RenderEngine {
 
             int imageX = Math.toIntExact((int) ((x / halfWidth + 1) * 0.5 * outputWidth));
             int imageY = Math.toIntExact((int) ((y / halfHeight + 1) * 0.5 * outputHeight));
-            outputImage.setRGB(imageX, imageY, pixelColor.asIntegerColor());
+            outputImage.writePixel(imageX, imageY, pixelColor);
 
             if (raysCast % 1_000_000 == 0) {
                 IO.print("\r%e/%e (%.2f)".formatted((double) raysCast, (double) totalRays, ((double) raysCast / totalRays * 100d)));
             }
         }
 
-        return outputImage;
+        return outputImage.getImage();
     }
 }
  

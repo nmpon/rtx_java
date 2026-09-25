@@ -24,7 +24,7 @@ void main() throws IOException {
             Math.toRadians(50)
     );
     var scene = new Scene(sceneObjects, camera);
-    var outputImage = RenderEngine.renderSimple(scene, 1280, 720, 40, 12);
+    var outputImage = RenderEngine.renderSimple(scene, 1280, 720, 1000, 12);
 
     File outputfile = new File("output.png");
     ImageIO.write(outputImage, "png", outputfile);
