@@ -13,29 +13,22 @@ public class RenderEngine {
                 intersectedSphere = sphere;
             }
         }
-        if (intersectedSphere == null){
+        if (intersectedSphere == null) {
             return scene.environmentColor;
         }
-        if (depth == 0){
-            return intersectedSphere.color;
+        if (depth == 0) {
+            return new Color(0, 0, 0);
         }
         var intersectionPoint = ray.positionAt(currentLowestT);
         var intersectionNormal = intersectedSphere.center.subtractVector(intersectionPoint).normalized();
 
-        var incomingRayReversed = ray.direction.multiply(-1);
-        var outgoingRayDirection = intersectionNormal
-                .multiply(2)
-                .multiply(intersectionNormal
-                        .dotProduct(incomingRayReversed))
-                .subtractVector(incomingRayReversed);
+        var outgoingRayDirection = Vector3.randomUnitVector();
         var outgoingRayOrigin = intersectionPoint;
         var outgoingRay = new Ray(outgoingRayOrigin, outgoingRayDirection);
 
+        var futureColor = traceRay(outgoingRay, scene, depth - 1);
 
-        var futureColor = traceRay(outgoingRay, scene,depth - 1);
-        var thisColor = intersectedSphere.color;
-
-        return thisColor.multiply(futureColor);
+        return intersectedSphere.shader.calculateColor(ray.direction, outgoingRayDirection, intersectionNormal, futureColor);
     }
 
 
