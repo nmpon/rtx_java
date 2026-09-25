@@ -9,6 +9,15 @@ public class Vector3 {
         this.z = z;
     }
 
+    // TODO: fix uneven distribution
+    public static Vector3 randomUnitVector() {
+        return new Vector3(
+                Math.random() * 2 - 1,
+                Math.random() * 2 - 1,
+                Math.random() * 2 - 1
+        ).normalized();
+    }
+
     public Vector3 addVector(Vector3 other) {
         return new Vector3(this.x + other.x, this.y + other.y, this.z + other.z);
     }
