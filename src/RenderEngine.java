@@ -16,11 +16,14 @@ public class RenderEngine {
         if (intersectedSphere == null) {
             return scene.environmentColor;
         }
+        if (intersectedSphere.shader.shaderType == Shader.ShaderType.EMISSION) {
+            return intersectedSphere.shader.color;
+        }
         if (depth == 0) {
             return new Color(0, 0, 0);
         }
         var intersectionPoint = ray.positionAt(currentLowestT);
-        var intersectionNormal = intersectedSphere.center.subtractVector(intersectionPoint).normalized();
+        var intersectionNormal = intersectionPoint.subtractVector(intersectedSphere.center).normalized();
 
         var outgoingRayDirection = Vector3.randomUnitVector();
         var outgoingRayOrigin = intersectionPoint;
