@@ -13,10 +13,11 @@ AA pixel mixing
 
 void main() throws IOException {
     var sceneObjects = new ArrayList<Sphere>();
-    sceneObjects.add(new Sphere(2.0, new Vector3(0.0, 0.0, 10), new Color(.7, .8, .1)));
-    sceneObjects.add(new Sphere(1.5, new Vector3(2.0, -5.0, 12), new Color(.8, .6, .8)));
-    sceneObjects.add(new Sphere(2.5, new Vector3(-5.0, 2.0, 8), new Color(.2, .3, .4)));
-    sceneObjects.add(new Sphere(2.0, new Vector3(4.0, -2.0, 8), new Color(2, 2, 2)));
+
+    sceneObjects.add(new Sphere(2.0, new Vector3(0.0, 0.0, 10), new Shader(new Color(.7, .8, .1))));
+    sceneObjects.add(new Sphere(1.5, new Vector3(2.0, -5.0, 12), new Shader(new Color(.8, .6, .8))));
+    sceneObjects.add(new Sphere(2.5, new Vector3(-5.0, 2.0, 8), new Shader(new Color(.2, .3, .4))));
+    sceneObjects.add(new Sphere(2.0, new Vector3(4.0, -2.0, 8), new Shader(new Color(2, 2, 2))));
     var camera = new Camera(
             new Vector3(0, 0, 0),
             new Vector3(0, 0, 0),

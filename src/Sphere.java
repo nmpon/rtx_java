@@ -1,12 +1,12 @@
 public class Sphere {
     double radius;
     Vector3 center;
-    Color color;
+    Shader shader;
 
-    public Sphere(double radius, Vector3 center, Color color) {
+    public Sphere(double radius, Vector3 center, Shader shader) {
         this.radius = radius;
         this.center = center;
-        this.color = color;
+        this.shader = shader;
     }
 
 
