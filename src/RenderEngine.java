@@ -14,7 +14,7 @@ public class RenderEngine {
             }
         }
         if (intersectedSphere == null){
-            return new Color(0.5, 0.5, 0.5);
+            return scene.environmentColor;
         }
         if (depth == 0){
             return intersectedSphere.color;
